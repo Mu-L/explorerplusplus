@@ -709,7 +709,6 @@
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <MultiProcessorCompilation Condition="'$(APPVEYOR)'=='True'">false</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ConformanceMode>true</ConformanceMode>
       <TreatAngleIncludeAsExternal>true</TreatAngleIncludeAsExternal>
