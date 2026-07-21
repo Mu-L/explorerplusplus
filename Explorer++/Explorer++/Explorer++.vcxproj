@@ -1058,6 +1058,7 @@
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation Condition="'$(APPVEYOR)'=='True'">false</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ObjectFileName>$(IntDir)%(RelativeDir)\</ObjectFileName>
       <ConformanceMode>true</ConformanceMode>
