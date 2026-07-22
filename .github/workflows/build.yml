@@ -21,22 +21,27 @@ jobs:
           - configuration: Debug-Asan
             platform: x64
             runner: windows-2022
+            msbuild-architecture: x64
 
           - configuration: Release-Clang
             platform: x64
             runner: windows-2022
+            msbuild-architecture: x64
 
           - configuration: Release
             platform: Win32
             runner: windows-2022
+            msbuild-architecture: x64
 
           - configuration: Release
             platform: x64
             runner: windows-2022
+            msbuild-architecture: x64
 
           - configuration: Release
             platform: ARM64
             runner: windows-11-arm
+            msbuild-architecture: arm64
 
     runs-on: ${{ matrix.runner }}
 
@@ -48,6 +53,8 @@ jobs:
 
       - name: Add MSBuild to PATH
         uses: microsoft/setup-msbuild@30375c66a4eea26614e0d39710365f22f8b0af57 # v3
+        with:
+          msbuild-architecture: ${{ matrix.msbuild-architecture }}
 
       - name: Bootstrap vcpkg
         run: Explorer++/ThirdParty/vcpkg/bootstrap-vcpkg.bat
