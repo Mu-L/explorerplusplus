@@ -20,19 +20,19 @@ jobs:
         include:
           - configuration: Debug-Asan
             platform: x64
-            runner: windows-2025
+            runner: windows-2022
 
           - configuration: Release-Clang
             platform: x64
-            runner: windows-2025
+            runner: windows-2022
 
           - configuration: Release
             platform: Win32
-            runner: windows-2025
+            runner: windows-2022
 
           - configuration: Release
             platform: x64
-            runner: windows-2025
+            runner: windows-2022
 
           - configuration: Release
             platform: ARM64
