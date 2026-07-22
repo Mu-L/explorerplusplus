@@ -1,0 +1,56 @@
+name: Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: ${{ matrix.configuration }} / ${{ matrix.platform }}
+
+    strategy:
+      fail-fast: false
+
+      matrix:
+        include:
+          - configuration: Debug-Asan
+            platform: x64
+            runner: windows-2025
+
+          - configuration: Release-Clang
+            platform: x64
+            runner: windows-2025
+
+          - configuration: Release
+            platform: Win32
+            runner: windows-2025
+
+          - configuration: Release
+            platform: x64
+            runner: windows-2025
+
+          - configuration: Release
+            platform: ARM64
+            runner: windows-11-arm
+
+    runs-on: ${{ matrix.runner }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          submodules: true
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@30375c66a4eea26614e0d39710365f22f8b0af57 # v3
+
+      - name: Bootstrap vcpkg
+        run: Explorer++/ThirdParty/vcpkg/bootstrap-vcpkg.bat
+
+      - name: Build
+        run: msbuild Explorer++/Explorer++.sln /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /v:minimal
