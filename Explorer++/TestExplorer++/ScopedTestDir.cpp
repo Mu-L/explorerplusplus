@@ -17,6 +17,12 @@ ScopedTestDir::ScopedTestDir()
 	// guarantee that it would still be empty when the tests run.
 	m_path = std::filesystem::temp_directory_path() / L"explorerpp-test" / CreateGUID();
 	std::filesystem::create_directories(m_path);
+
+	// std::filesystem::temp_directory_path() can return an 8.3 short path name.
+	// std::filesystem::canonical() should turn that back into a long path name. Doing this is
+	// important, since tests that rely on comparing pidls/paths (e.g. the FileSystemWatcher tests)
+	// can fail if there is a mixture of short/long path names.
+	m_path = std::filesystem::canonical(m_path);
 }
 
 ScopedTestDir::~ScopedTestDir()
