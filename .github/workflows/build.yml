@@ -67,3 +67,6 @@ jobs:
 
       - name: Build
         run: msbuild Explorer++/Explorer++.sln /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /v:minimal
+
+      - name: Run tests
+        run: ./.github/run_tests.ps1 -Configuration '${{ matrix.configuration }}' -Platform '${{ matrix.platform }}'
